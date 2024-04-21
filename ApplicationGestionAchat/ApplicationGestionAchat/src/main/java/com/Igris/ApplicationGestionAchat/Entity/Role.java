@@ -1,0 +1,16 @@
+package com.Igris.ApplicationGestionAchat.Entity;
+
+
+public enum Role {
+
+	DEMANDEUR,
+	ACHETEUR,
+	RESPONSABLE,
+	CHEF_SERVICE,
+	CHEF_DEVISION,
+	DIRECTEUR,
+	SECRETARIAT,
+	MEMBRE_COMMISSION,
+	PRESIDENT_COMMISSION,
+	ADMIN;
+}

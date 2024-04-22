@@ -32,7 +32,8 @@ public class AuthenticationController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ResponseEntity.ok(new AuthenticationResponse("Error Occured at register"));
+		return ResponseEntity.ok(
+				AuthenticationResponse.builder().message("Error Occured at Register").build());
 	}
 	
 	@PostMapping("/login")
@@ -45,7 +46,8 @@ public class AuthenticationController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ResponseEntity.ok(new AuthenticationResponse("Error Occured at authenticate"));
+		return ResponseEntity.ok(
+				AuthenticationResponse.builder().message("Error Occured at authenticate").build());
 
 	}
 }

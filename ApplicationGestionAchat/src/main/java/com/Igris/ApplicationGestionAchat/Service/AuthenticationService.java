@@ -1,6 +1,5 @@
 package com.Igris.ApplicationGestionAchat.Service;
 
-import java.util.Optional;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +11,6 @@ import com.Igris.ApplicationGestionAchat.Entity.Role;
 import com.Igris.ApplicationGestionAchat.Entity.Token;
 import com.Igris.ApplicationGestionAchat.Entity.User;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -54,8 +52,8 @@ public class AuthenticationService {
 		System.out.println(user);
 		userService.saveUser(user);
 		String token=jwtService.generateToken(user);
-		saveUserToken(user, token);
-		return new AuthenticationResponse(token);
+		saveUserToken(user, token);;
+		return AuthenticationResponse.builder().token(token).build();
 	}
 	
 	public AuthenticationResponse authenticate(User userRequest,HttpServletResponse response) throws Exception {
@@ -67,19 +65,24 @@ public class AuthenticationService {
 		saveUserToken(user,token);
 		System.out.println("logged in !");
 		
-		Cookie tokenCookie= new Cookie("Token",token);
-		tokenCookie.setHttpOnly(true);//To make the jwt token unmodifiable by the client-side
-		tokenCookie.setSecure(true);//to make sure the cookie will be sent over HTTPS only
-		response.addCookie(tokenCookie);
-		
-		Cookie matriculeCookie = new Cookie("Matricule", user.getMatricule());
-		matriculeCookie.setSecure(true);
-		response.addCookie(matriculeCookie);
-		
-		Cookie roleCookie=new Cookie("Role",user.getRole().toString());
-		roleCookie.setSecure(true);
-		response.addCookie(roleCookie);
-		
-		return new AuthenticationResponse(token);
+//		Cookie tokenCookie= new Cookie("Token",token);
+//		tokenCookie.setHttpOnly(true);//To make the jwt token unmodifiable by the client-side
+//		tokenCookie.setSecure(true);//to make sure the cookie will be sent over HTTPS only
+//		response.addCookie(tokenCookie);
+//		
+//		Cookie matriculeCookie = new Cookie("Matricule", user.getMatricule());
+//		matriculeCookie.setSecure(true);
+//		response.addCookie(matriculeCookie);
+//		
+//		Cookie roleCookie=new Cookie("Role",user.getRole().toString());
+//		roleCookie.setDomain("localhost");
+//		//roleCookie.setSecure(true);// this line was remove since localhost is not secure (HTTPS)
+//		response.addCookie(roleCookie);
+		AuthenticationResponse authResponse = AuthenticationResponse.builder()
+				.token(token)
+				.role(user.getRole().name())
+				.build();
+		System.out.println(authResponse);
+		return authResponse;
 	}
 }

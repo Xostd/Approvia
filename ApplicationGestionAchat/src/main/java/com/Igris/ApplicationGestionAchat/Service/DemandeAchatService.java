@@ -23,4 +23,16 @@ public class DemandeAchatService{
 	public List<DemandeAchat> getDemandeAchatByUserMatricule(String matricule){
 		return demandeAchatRepository.findAllDemandeAchatByUser(matricule);
 	}
+	
+	public List<DemandeAchat> getDemandeAchatByUserRegion(String region){
+		return demandeAchatRepository.findAllDemandeAchatByRegion(region);
+	}
+	
+	public Long getDemandeSequenceNextVal() {
+		return demandeAchatRepository.getSequenceNextVal();
+	}
+	
+	public void resetDemandeSequence() {
+		demandeAchatRepository.resetSequence();
+	}
 }

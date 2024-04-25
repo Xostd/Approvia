@@ -34,4 +34,5 @@ public interface UserRepository extends JpaRepository<User,String>{
 	@Query(value = "select PK_Users.NEXTVAL from dual", nativeQuery = true)
 	public Long getSequenceNextVal();
 	
+	
 }

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat;
+import com.Igris.ApplicationGestionAchat.Entity.User;
 import com.Igris.ApplicationGestionAchat.Service.DemandeAchatService;
+import com.Igris.ApplicationGestionAchat.Service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,9 +23,18 @@ import lombok.RequiredArgsConstructor;
 public class DemandeAchatController {
 	
 	private final DemandeAchatService demandeAchatService;
+	private final UserService userService;
 	
 	  @GetMapping("getDemandeAchatByUser")
-	  public List<DemandeAchat> getDemandeAchatByUser(@RequestBody String matricule) {
+	  public List<DemandeAchat> getAllDemandeAchatByUser(String matricule) {
+		  System.out.println(matricule);
 		 return demandeAchatService.getDemandeAchatByUserMatricule(matricule);
+	  }
+	  
+	  @GetMapping("getDemandeAchatByRegion")
+	  public List<DemandeAchat> getAllDemandeAchatByRegion(String matricule) {
+		  System.out.println(matricule);
+		  User user = userService.getUserByMatricule(matricule).orElseThrow();
+		 return demandeAchatService.getDemandeAchatByUserRegion(user.getRegion().toString());
 	  }
 }

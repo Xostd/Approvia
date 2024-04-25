@@ -6,6 +6,8 @@ import java.util.Set;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -28,8 +30,12 @@ public class DemandeAchat {
 	@Column(name="reference")
 	private String reference;
 	
-	@Column(name="date")
-	private LocalDate date;
+	@Column(name="date_creation")
+	private LocalDate dateCreation;
+	
+	@Column(name="etat")
+	@Enumerated(value = EnumType.STRING)
+	private Etat etat;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_matricule")
@@ -37,5 +43,10 @@ public class DemandeAchat {
 	
 	@OneToMany(mappedBy = "demandeAchat", cascade = CascadeType.PERSIST)
 	private Set<LigneDemandeAchat> lignes;
+	
+	// -----------------------------Generate new unique reference------------------------------------
+	public static String generateReference(Long sequence) {
+		return "DA-" + LocalDate.now().getYear() + "-" + String.format("%05d", sequence);
+	}
 
 }

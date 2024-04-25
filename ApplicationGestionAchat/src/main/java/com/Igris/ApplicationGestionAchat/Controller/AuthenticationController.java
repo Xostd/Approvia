@@ -47,7 +47,9 @@ public class AuthenticationController {
 			e.printStackTrace();
 		}
 		return ResponseEntity.ok(
-				AuthenticationResponse.builder().message("Error Occured at authenticate").build());
+				AuthenticationResponse.builder()
+				.token(null)
+				.message("Error Occured at authenticate").build());
 
 	}
 }

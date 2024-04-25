@@ -58,7 +58,9 @@ public class AuthenticationService {
 	
 	public AuthenticationResponse authenticate(User userRequest,HttpServletResponse response) throws Exception {
 		String matricule = userRequest.getMatricule();
+		//String mdps= passwordEncoder.encode(userRequest.getMdps());
 		String mdps= userRequest.getMdps();
+		System.out.println(mdps);
 		authManager.authenticate(new UsernamePasswordAuthenticationToken(matricule,mdps));
 		User user = this.userService.getUserByMatricule(userRequest.getMatricule()).orElseThrow();
 		String token = jwtService.generateToken(user);

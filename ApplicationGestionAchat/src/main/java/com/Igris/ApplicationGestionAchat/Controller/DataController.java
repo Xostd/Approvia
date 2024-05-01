@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Igris.ApplicationGestionAchat.Entity.Region;
 import com.Igris.ApplicationGestionAchat.Entity.Service;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @RestController
 @CrossOrigin(origins = "http://localhost:5173/")
 @RequestMapping("/api/data")
 public class DataController {
+	
 	
 	  @GetMapping("services")
 	  public ArrayList<String> getServices() {
@@ -31,4 +35,5 @@ public class DataController {
 		  regions.forEach(region ->regionsArr.add(region.name()));
 	    return regionsArr;
 	  }
+
 }

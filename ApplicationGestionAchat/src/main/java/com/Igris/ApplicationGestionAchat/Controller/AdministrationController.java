@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Igris.ApplicationGestionAchat.Entity.User;
@@ -27,27 +27,27 @@ public class AdministrationController {
 		return userServ.getAllUsers();
 	}
 
-	@GetMapping("/getUsersByRegion")
-	public ArrayList<User> getUsersByRegion(@RequestParam String region){
+	@GetMapping("/getUsersByRegion/{region}")
+	public ArrayList<User> getUsersByRegion(@PathVariable("region") String region){
 		return userServ.getUsersByRegion(region);
 	}
 	
-	@GetMapping("/getUsersByUserRegion")
-	public ArrayList<User> getUsersByUserRegion(@RequestParam String matricule){
+	@GetMapping("/getUsersByUserRegion{matricule}")
+	public ArrayList<User> getUsersByUserRegion(@PathVariable("matricule") String matricule){
 		return userServ.getUsersByUserRegion(matricule);
 	}
-	@GetMapping("/getUsersByService")
-	public ArrayList<User> getUsersByService(@RequestParam String service){
+	@GetMapping("/getUsersByService/{service}")
+	public ArrayList<User> getUsersByService(@PathVariable("service") String service){
 		return userServ.getUsersByService(service);
 	}
 	
-	@GetMapping("/getUsersByNom")
-	public ArrayList<User> getUsersByNom(@RequestParam String nom){
+	@GetMapping("/getUsersByNom/{nom}")
+	public ArrayList<User> getUsersByNom(@PathVariable("nom") String nom){
 		return userServ.getUsersByNom(nom);
 	}
 	
-	@GetMapping("/getUsersByPrenom")
-	public ArrayList<User> getUsersByPrenom(@RequestParam String prenom){
+	@GetMapping("/getUsersByPrenom/{prenom}")
+	public ArrayList<User> getUsersByPrenom(@PathVariable("prenom") String prenom){
 		return userServ.getUsersByPrenom(prenom);
 	}
 	

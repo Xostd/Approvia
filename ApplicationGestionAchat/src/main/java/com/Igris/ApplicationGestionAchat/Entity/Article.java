@@ -26,6 +26,9 @@ public class Article {
 	@Column(name="libelle")
 	private String libelle;
 	
+	@Column(name="prix_unitaire")	
+	private float prixUnitaire;
+	
 	@Column(name="unite")
 	private String unite;
 }

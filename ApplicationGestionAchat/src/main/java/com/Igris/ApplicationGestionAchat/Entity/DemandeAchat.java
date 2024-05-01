@@ -41,12 +41,15 @@ public class DemandeAchat {
 	@JoinColumn(name = "user_matricule")
 	private User user;
 	
+	@Column(name="somme")
+	private float somme;
+	
 	@OneToMany(mappedBy = "demandeAchat", cascade = CascadeType.PERSIST)
 	private Set<LigneDemandeAchat> lignes;
 	
 	// -----------------------------Generate new unique reference------------------------------------
 	public static String generateReference(Long sequence) {
-		return "DA-" + LocalDate.now().getYear() + "-" + String.format("%05d", sequence);
+		return "DA-" + LocalDate.now().getYear() + "-" + String.format("%08d", sequence);
 	}
 
 }

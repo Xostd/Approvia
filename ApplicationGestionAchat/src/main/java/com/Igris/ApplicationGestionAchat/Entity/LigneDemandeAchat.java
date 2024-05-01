@@ -12,12 +12,16 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="LigneDemandeAchat")
-@Data
+@Getter 
+@Setter
+@EqualsAndHashCode
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,7 +40,20 @@ public class LigneDemandeAchat {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="article_reference")
 	private Article article;
+    
+    @Column(name="prix")
+    private float prix;
 	
 	@Column(name="quantite")
 	private float quantite;
+
+	@Override
+	public String toString() {
+		return "LigneDemandeAchat [id=" + id + 
+				", demandeAchat=" + (demandeAchat!=null?demandeAchat.getReference():"") +
+				", article=" + article + ", prix="
+				+ prix + ", quantite=" + quantite + "]";
+	}
+	
+	
 }

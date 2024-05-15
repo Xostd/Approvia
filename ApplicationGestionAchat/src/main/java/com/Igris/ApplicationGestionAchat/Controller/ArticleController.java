@@ -23,7 +23,9 @@ public class ArticleController {
 
 	  @GetMapping("getAllArticles")
 	  public List<Article> getArticles(){
-		  return articleService.getAllArticles();
+		  List<Article> articles = articleService.getAllArticles();
+		  System.out.println(articles);
+		  return articles;
 	  }
 	  
 	  @GetMapping("getArticle/{reference}")

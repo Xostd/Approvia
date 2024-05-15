@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Igris.ApplicationGestionAchat.Entity.Etat;
+import com.Igris.ApplicationGestionAchat.Entity.Poste;
 import com.Igris.ApplicationGestionAchat.Entity.Region;
 import com.Igris.ApplicationGestionAchat.Entity.Service;
 
@@ -35,5 +37,20 @@ public class DataController {
 		  regions.forEach(region ->regionsArr.add(region.name()));
 	    return regionsArr;
 	  }
-
+	  
+	  @GetMapping("postes")
+	  public ArrayList<String> getPostes() {
+		  EnumSet<Poste> postes = EnumSet.allOf(Poste.class);
+		  ArrayList<String> postesArr = new ArrayList<String>();
+		  postes.forEach(poste ->postesArr.add(poste.name()));
+	    return postesArr;
+	  }
+	  
+	  @GetMapping("etats")
+	  public ArrayList<String> getEtat() {
+		  EnumSet<Etat> etats = EnumSet.allOf(Etat.class);
+		  ArrayList<String> etatsArr = new ArrayList<String>();
+		  etats.forEach(etat ->etatsArr.add(etat.name()));
+	    return etatsArr;
+	  }
 }

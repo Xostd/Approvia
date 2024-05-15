@@ -1,13 +1,13 @@
 package com.Igris.ApplicationGestionAchat.Entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -30,21 +30,20 @@ public class DemandeAchat {
 	@Column(name="reference")
 	private String reference;
 	
+	@Column(name="description")
+	private String description;
+	
 	@Column(name="date_creation")
 	private LocalDate dateCreation;
 	
+	@OneToMany(mappedBy="demandeAchat", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Column(name="etat")
-	@Enumerated(value = EnumType.STRING)
-	private Etat etat;
-	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "user_matricule")
-	private User user;
+	private List<DetailEtat> etats ;
 	
 	@Column(name="somme")
-	private float somme;
+	private double somme;
 	
-	@OneToMany(mappedBy = "demandeAchat", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "demandeAchat", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<LigneDemandeAchat> lignes;
 	
 	// -----------------------------Generate new unique reference------------------------------------

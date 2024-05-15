@@ -8,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -52,6 +54,13 @@ public class User implements UserDetails {
 	@Enumerated(value = EnumType.STRING)
 	private Role role;
 	
+	@Enumerated(value = EnumType.STRING)
+	private Poste poste;
+	
+	@Enumerated(value = EnumType.STRING)
+	private Permission permission;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)//
     private List<Token> tokens;
 

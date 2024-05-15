@@ -12,10 +12,11 @@ import com.Igris.ApplicationGestionAchat.Entity.LigneDemandeAchat;
 public interface LigneDemandeAchatRepository extends JpaRepository<LigneDemandeAchat, String>{
 
 	
-    @Query("""
-		select l from LigneDemandeAchat l
-		  inner join DemandeAchat d on d.reference = l.demandeAchat.reference
-		  where d.reference = :reference
-	""")	
-    Set<LigneDemandeAchat> findAllLigneDemandeAchatByDemandeAchat(String reference);
+	@Query("""
+			  select l from LigneDemandeAchat l
+			    join DemandeAchat d on d.reference = l.demandeAchat.reference
+			  where d.reference = :reference
+			""")
+			Set<LigneDemandeAchat> findAllLigneDemandeAchatByDemandeAchat(String reference);
+
 }

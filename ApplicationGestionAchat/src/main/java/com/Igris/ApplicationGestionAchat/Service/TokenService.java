@@ -23,6 +23,10 @@ public class TokenService {
     public void saveToken(Token token) {
         tokenRepository.save(token);
     }
+    
+    public void saveAllToken(List<Token> tokens) {
+        tokenRepository.saveAll(tokens);
+    }
 
     public Optional<Token> getByToken(String token) {
         return tokenRepository.findByToken(token);

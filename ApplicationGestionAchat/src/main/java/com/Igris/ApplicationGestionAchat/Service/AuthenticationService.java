@@ -1,15 +1,20 @@
 package com.Igris.ApplicationGestionAchat.Service;
 
 
+import java.util.List;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Igris.ApplicationGestionAchat.Entity.AuthenticationResponse;
+import com.Igris.ApplicationGestionAchat.Entity.Permission;
+import com.Igris.ApplicationGestionAchat.Entity.Poste;
 import com.Igris.ApplicationGestionAchat.Entity.Role;
 import com.Igris.ApplicationGestionAchat.Entity.Token;
 import com.Igris.ApplicationGestionAchat.Entity.User;
+
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +40,34 @@ public class AuthenticationService {
 	}
 	
 	public AuthenticationResponse register(User userRequest) throws Exception{
+		System.out.println(userRequest.getService().name());
+		Permission permission=Permission.REGULAR;
+		switch(userRequest.getPoste()) {
+		case RESPONSABLE:
+			if(userRequest.getService()
+					.equals(com.Igris.ApplicationGestionAchat.Entity.Service.Achat))
+				permission=Permission.VALIDATOR;
+			else
+				permission=Permission.REGULAR;
+			break;
+		case SECRETARIAT:
+			permission=Permission.SECRETARIAT;
+			break;
+		default :
+			permission=Permission.SUPERVISOR;
+		}
+		Role role =Role.DEMANDEUR;
+		
+			if(userRequest.getService()
+					.equals(com.Igris.ApplicationGestionAchat.Entity.Service.Achat)) {
+				role=Role.ACHETEUR;}
+//				permission=Permission.VALIDATOR;
+//				if(!userRequest.getPoste().equals(Poste.TRAVAILLEUR)
+//						&&!userRequest.getPoste().equals(Poste.SECRETARIAT)) {
+//					permission=Permission.SUPERVISOR;
+//				}
+//				System.out.println(">>> true");
+//			}
 		User user = User.builder()
 				.nom(userRequest.getNom())
 				.prenom(userRequest.getPrenom())
@@ -47,7 +80,9 @@ public class AuthenticationService {
 							, userRequest.getService()
 							, userService.getSequenceNextVal())
 						)
-				.role(Role.DEMANDEUR)
+				.role(role)
+				.poste(userRequest.getPoste())
+				.permission(permission)
 				.build();
 		System.out.println(user);
 		userService.saveUser(user);
@@ -64,6 +99,8 @@ public class AuthenticationService {
 		authManager.authenticate(new UsernamePasswordAuthenticationToken(matricule,mdps));
 		User user = this.userService.getUserByMatricule(userRequest.getMatricule()).orElseThrow();
 		String token = jwtService.generateToken(user);
+		revokeAllTokensByUser(user);
+		
 		saveUserToken(user,token);
 		System.out.println("logged in !");
 		
@@ -83,8 +120,19 @@ public class AuthenticationService {
 		AuthenticationResponse authResponse = AuthenticationResponse.builder()
 				.token(token)
 				.role(user.getRole().name())
+				.permission(user.getPermission().name())
 				.build();
 		System.out.println(authResponse);
 		return authResponse;
+	}
+
+	private void revokeAllTokensByUser(User user) {
+		List<Token> validTokenListByUser=tokenService.getAllTokensByUser(user.getMatricule());
+		if(!validTokenListByUser.isEmpty()) {
+			validTokenListByUser.forEach(t->{
+				t.setLoggedOut(true);
+			});
+		}
+		tokenService.saveAllToken(validTokenListByUser);
 	}
 }

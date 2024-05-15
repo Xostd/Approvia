@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.Igris.ApplicationGestionAchat.Entity.User;
-import com.Igris.ApplicationGestionAchat.Repository.TokenRepository;
+import com.Igris.ApplicationGestionAchat.Service.TokenService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class JwtService {
 //this class is mean for jwt token generation and payload extraction
 	private final String SECRET_KEY="9e80fda66fa07cdc6d58c55949e92044db2e6f27cb259f484e7add3c2fdf7562";
-    private final TokenRepository tokenRepository;
+    private final TokenService tokenService;
 
 	public String generateToken(User user) {
 		String token = Jwts
@@ -66,8 +66,8 @@ public class JwtService {
 	public boolean isValid(String token, UserDetails user) {
         String username = extractMatricule(token);
 
-        boolean isvalidToken = tokenRepository
-                .findByToken(token)
+        boolean isvalidToken = tokenService
+                .getByToken(token)
                 .map(t -> !t.isLoggedOut())
                 .orElse(false);
 

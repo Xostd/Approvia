@@ -37,7 +37,9 @@ public interface DemandeAchatRepository extends JpaRepository<DemandeAchat, Stri
 		    SELECT da
 		    FROM DemandeAchat da
 		    JOIN da.etats de
-		    WHERE de.etat != 'REJETE' AND de.user.region = :region
+		    WHERE de.etat != 'REJETE'
+		    AND de.etat != 'ANNULE'
+		     AND de.user.region = :region
 		    
 		""")
 		List<DemandeAchat> findAllDemandeAchatByRegion(@Param("region") Region region);

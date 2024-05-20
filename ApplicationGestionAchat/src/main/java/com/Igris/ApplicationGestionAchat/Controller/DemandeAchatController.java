@@ -60,7 +60,7 @@ public class DemandeAchatController {
 		  try {
 			  user = userService.getUserByMatricule(matricule).orElseThrow();
 		  }catch(Exception e) {
-			  e.printStackTrace();
+			  e.printStackTrace(); 
 			  return null;
 		  }
 		  List<DemandeAchat> demandes =demandeAchatService.getDemandeAchatByUserRegion(user.getRegion());
@@ -92,7 +92,6 @@ public class DemandeAchatController {
 		  System.out.println(">>>>>\n"+demande);
 		 return demande;
 	  }
-	  
 	  @PostMapping("create/{matricule}")
 	  public ResponseEntity<String> createDemande(@RequestBody DemandeAchat demandeRequest
 			  ,@PathVariable("matricule") String matricule) {
@@ -106,10 +105,7 @@ public class DemandeAchatController {
 		        return ResponseEntity.ok("User with matricule " + matricule + " not found");
 		    }
 		    double somme = demandeRequest.getLignes().stream().mapToDouble(ligne -> ligne.getPrix()).sum();
-
-		  System.out.println(demandeRequest);
-
-		  DemandeAchat demande = DemandeAchat.builder()
+		    DemandeAchat demande = DemandeAchat.builder()
 				  .reference(DemandeAchat.generateReference(demandeAchatService.getDemandeSequenceNextVal()))
 				  .dateCreation(LocalDate.now())
 				  .description(demandeRequest.getDescription())
@@ -121,9 +117,7 @@ public class DemandeAchatController {
 		                            .user(user)
 		                            .build()))
 				  .somme(somme)
-				  .build();
-//		  demande.getEtats().get(0).setDemandeAchat(demande);
-		  
+				  .build();		  
 		  demandeRequest.getLignes().forEach((ligne)->{
 		  ligne.setDemandeAchat(demande);
 		  System.out.println(ligne);
@@ -134,16 +128,16 @@ public class DemandeAchatController {
 		  return ResponseEntity.ok("demande created");
 	  }
 	//------------------------------------------------  
-	  @PostMapping("update/{matricule}/{reference}")
-	  public String updateDemande(@RequestBody Set<LigneDemandeAchat> lignes
-			  ,@PathVariable("matricule") String matricule,@PathVariable("reference")String reference) {
+	  @PostMapping("update/{matricule}")
+	  public String updateDemande(@RequestBody DemandeAchat demandeRequest
+			  ,@PathVariable("matricule") String matricule) {
 		  float somme=0;
 
-		  if(lignes.isEmpty()) {
-			  return "empty values";
+		  if(demandeRequest==null) {
+			  return "empty Request Body";
 		  }
 		  //---------------------
-		  User user = null;
+		  User user;
 		  try {
 			  user=userService.getUserByMatricule(matricule).orElseThrow();
 		  }
@@ -151,11 +145,11 @@ public class DemandeAchatController {
 			  e.printStackTrace();
 			  return "user not found";
 		  }
-		  for(LigneDemandeAchat ligne : lignes) {
+		  for(LigneDemandeAchat ligne : demandeRequest.getLignes()) {
 			  ligne.setPrix(ligne.getArticle().getPrixUnitaire()*ligne.getQuantite());
 			  somme+=ligne.getPrix();
 		  }
-			 DemandeAchat demande = demandeAchatService.getByReference(reference).orElseThrow();
+			 DemandeAchat demande = demandeAchatService.getByReference(demandeRequest.getReference()).orElseThrow();
 //		  System.out.println(">>>> matricule\n"+ matricule +"\n>>>>");
 //		  System.out.println(">>>>reference\n"+ reference +"\n>>>>");
 //		  System.out.println(">>>>demande\n"+ demande.getReference() +"\n>>>>");
@@ -169,6 +163,7 @@ public class DemandeAchatController {
 //					  .demandeAchat(demande)
 					  .build()
 					  );
+			  demande.setDescription(demandeRequest.getDescription());
 		  demande.setSomme(somme);
 //		  demande.setDateCreation(LocalDate.now());		  
 //		  DemandeAchat demandeNew =DemandeAchat.builder()
@@ -182,12 +177,12 @@ public class DemandeAchatController {
 //				  .modifierPar(reference==null?null:user)
 //				  .somme(somme)
 //				  .build();
-		  lignes.forEach((ligne)->{
+		  demandeRequest.getLignes().forEach((ligne)->{
 			  ligne.setDemandeAchat(demande);
 			  System.out.println(ligne);
 		  });
 		  demandeAchatService.saveDemandeAchat(demande);
-		  ligneDemandeAchatService.saveAllLigneDemandeAchat(lignes);
+		  ligneDemandeAchatService.saveAllLigneDemandeAchat(demandeRequest.getLignes());
 		  return "demande updated";
 		  }
 		//------------------------------------------------  

@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.Igris.ApplicationGestionAchat.Entity.User;
+import com.Igris.ApplicationGestionAchat.Entity.User.User;
 import com.Igris.ApplicationGestionAchat.Service.JwtService;
 import com.Igris.ApplicationGestionAchat.Service.UserDetailsServiceImp;
 

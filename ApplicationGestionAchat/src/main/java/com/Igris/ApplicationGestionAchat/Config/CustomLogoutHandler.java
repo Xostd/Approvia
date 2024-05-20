@@ -1,6 +1,6 @@
 package com.Igris.ApplicationGestionAchat.Config;
 
-import com.Igris.ApplicationGestionAchat.Entity.Token;
+import com.Igris.ApplicationGestionAchat.Entity.User.Token;
 import com.Igris.ApplicationGestionAchat.Service.TokenService;
 
 import jakarta.servlet.http.Cookie;

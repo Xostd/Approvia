@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.Igris.ApplicationGestionAchat.Entity.User;
+import com.Igris.ApplicationGestionAchat.Entity.User.User;
 import com.Igris.ApplicationGestionAchat.Repository.UserRepository;
 
 @Service

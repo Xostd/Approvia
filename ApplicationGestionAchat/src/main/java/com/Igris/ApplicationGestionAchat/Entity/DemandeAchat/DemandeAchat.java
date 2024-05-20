@@ -1,9 +1,11 @@
-package com.Igris.ApplicationGestionAchat.Entity;
+package com.Igris.ApplicationGestionAchat.Entity.DemandeAchat;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import com.Igris.ApplicationGestionAchat.Entity.DetailEtat;
+import com.Igris.ApplicationGestionAchat.Entity.CPT.CahierPrescriptionsTechniques;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,8 +13,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,14 +38,18 @@ public class DemandeAchat {
 	@Column(name="date_creation")
 	private LocalDate dateCreation;
 	
-	@OneToMany(mappedBy="demandeAchat", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@Column(name="etat")
 	private List<DetailEtat> etats ;
 	
 	@Column(name="somme")
 	private double somme;
 	
-	@OneToMany(mappedBy = "demandeAchat", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "reference_cpt", referencedColumnName = "reference")
+	private CahierPrescriptionsTechniques cpt;
+	
+    @OneToMany(mappedBy = "demandeAchat", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Set<LigneDemandeAchat> lignes;
 	
 	// -----------------------------Generate new unique reference------------------------------------

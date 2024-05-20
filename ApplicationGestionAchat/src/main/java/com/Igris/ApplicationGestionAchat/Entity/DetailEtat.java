@@ -2,7 +2,7 @@ package com.Igris.ApplicationGestionAchat.Entity;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.Igris.ApplicationGestionAchat.Entity.User.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,18 +15,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
 @Entity
-@Table(name="detail_Etat")
+@Builder
 public class DetailEtat {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,17 +39,4 @@ public class DetailEtat {
 	@ManyToOne(fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
     @JoinColumn(name="user_matricule")
 	private User user;
-	
-	@JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
-    @JoinColumn(name="ref_demande_achat")
-	private DemandeAchat demandeAchat;
-
-	@Override
-	public String toString() {
-		return "DetailEtat [id=" + id + ", etat=" + etat + ", date=" + date + ", user=" + user + ", demandeAchat="
-				+ demandeAchat.getReference() + "]";
-	}
-	
-
 }

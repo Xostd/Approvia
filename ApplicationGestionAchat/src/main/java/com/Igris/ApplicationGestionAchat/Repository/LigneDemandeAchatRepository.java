@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.Igris.ApplicationGestionAchat.Entity.LigneDemandeAchat;
+import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat.LigneDemandeAchat;
 
 @Repository
 public interface LigneDemandeAchatRepository extends JpaRepository<LigneDemandeAchat, String>{

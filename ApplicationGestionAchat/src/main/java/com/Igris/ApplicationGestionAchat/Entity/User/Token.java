@@ -1,4 +1,4 @@
-package com.Igris.ApplicationGestionAchat.Entity;
+package com.Igris.ApplicationGestionAchat.Entity.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

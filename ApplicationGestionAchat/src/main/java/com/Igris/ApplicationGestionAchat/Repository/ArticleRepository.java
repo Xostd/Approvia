@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.Igris.ApplicationGestionAchat.Entity.Article;
+import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat.Article;
 
 
 @Repository

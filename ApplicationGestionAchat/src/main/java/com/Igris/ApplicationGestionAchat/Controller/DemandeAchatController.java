@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat;
-import com.Igris.ApplicationGestionAchat.Entity.DetailEtat;
 import com.Igris.ApplicationGestionAchat.Entity.Etat;
-import com.Igris.ApplicationGestionAchat.Entity.LigneDemandeAchat;
-import com.Igris.ApplicationGestionAchat.Entity.Permission;
-import com.Igris.ApplicationGestionAchat.Entity.Role;
-import com.Igris.ApplicationGestionAchat.Entity.User;
+import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat.DemandeAchat;
+import com.Igris.ApplicationGestionAchat.Entity.DetailEtat;
+import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat.LigneDemandeAchat;
+import com.Igris.ApplicationGestionAchat.Entity.User.Permission;
+import com.Igris.ApplicationGestionAchat.Entity.User.Role;
+import com.Igris.ApplicationGestionAchat.Entity.User.User;
 import com.Igris.ApplicationGestionAchat.Service.DemandeAchatService;
 import com.Igris.ApplicationGestionAchat.Service.LigneDemandeAchatService;
 import com.Igris.ApplicationGestionAchat.Service.UserService;
@@ -115,14 +115,14 @@ public class DemandeAchatController {
 				  .description(demandeRequest.getDescription())
 //				  .lignes(demandeRequest.getLignes())
 				  .etats(Collections.singletonList(
-		                    DetailEtat.builder()
-		                            .etat(Etat.CREEE)
+						  DetailEtat.builder()
+		                            .etat(Etat.CREE)
 		                            .date(LocalDate.now())
 		                            .user(user)
 		                            .build()))
 				  .somme(somme)
 				  .build();
-		  demande.getEtats().get(0).setDemandeAchat(demande);
+//		  demande.getEtats().get(0).setDemandeAchat(demande);
 		  
 		  demandeRequest.getLignes().forEach((ligne)->{
 		  ligne.setDemandeAchat(demande);
@@ -163,10 +163,10 @@ public class DemandeAchatController {
 
 			  demande.getEtats().add(
 					  DetailEtat.builder()
-					  .etat(Etat.MODIFIEE)
+					  .etat(Etat.MODIFIE)
 					  .date(LocalDate.now())
 					  .user(user)
-					  .demandeAchat(demande)
+//					  .demandeAchat(demande)
 					  .build()
 					  );
 		  demande.setSomme(somme);
@@ -214,9 +214,9 @@ public class DemandeAchatController {
 		  }
 			 User auteur = demande.getEtats().get(0).getUser();
 			 //----------
-			DetailEtat etat= demande.getEtats().get(demande.getEtats().size()-1);
+			 DetailEtat etat= demande.getEtats().get(demande.getEtats().size()-1);
 			System.out.println(etat);
-			boolean isValid=!etat.getEtat().equals(Etat.CREEE)&&!etat.getEtat().equals(Etat.MODIFIEE);
+			boolean isValid=!etat.getEtat().equals(Etat.CREE)&&!etat.getEtat().equals(Etat.MODIFIE);
 				 
 			 System.out.println(demande.getReference());
 			 System.out.println(auteur.getMatricule());
@@ -231,9 +231,9 @@ public class DemandeAchatController {
 				 demande.getEtats().add(
 						 DetailEtat.builder()
 						 .date(LocalDate.now())
-						 .demandeAchat(demande)
+//						 .demandeAchat(demande)
 						 .user(user)
-						 .etat(Etat.ANNULEE)
+						 .etat(Etat.ANNULE)
 						 .build()
 						 );
 				  System.out.println("demandeur mat >>"+auteur.getMatricule());
@@ -247,9 +247,9 @@ public class DemandeAchatController {
 				 demande.getEtats().add(
 						 DetailEtat.builder()
 						 .date(LocalDate.now())
-						 .demandeAchat(demande)
+//						 .demandeAchat(demande)
 						 .user(user)
-						 .etat(Etat.REJETEE)
+						 .etat(Etat.REJETE)
 						 .build()
 						 );
 				  ligneDemandeAchatService.saveAllLigneDemandeAchat(demande.getLignes());
@@ -287,7 +287,7 @@ public class DemandeAchatController {
 		//if not validated by a supervisor it will be supervisor validated
 		boolean isSuperValid = false;
 		for(DetailEtat etat : demande.getEtats()) {
-			if(etat.getEtat().equals(Etat.APPROUVEE_SUPERVISOR)) {
+			if(etat.getEtat().equals(Etat.APPROUVE_SUPERVISOR)) {
 				isSuperValid=true;
 				break;
 			}
@@ -297,10 +297,10 @@ public class DemandeAchatController {
 
 					  demande.getEtats().add(
 							  DetailEtat.builder()
-							  .etat(Etat.APPROUVEE_SUPERVISOR)
+							  .etat(Etat.APPROUVE_SUPERVISOR)
 							  .date(LocalDate.now())
 							  .user(user)
-							  .demandeAchat(demande)
+//							  .demandeAchat(demande)
 							  .build()
 							  );
 					  demandeAchatService.saveDemandeAchat(demande);
@@ -310,10 +310,10 @@ public class DemandeAchatController {
 				  ) {
 			  		  demande.getEtats().add(
 				  DetailEtat.builder()
-				  .etat(Etat.APPROVEE_ACHETEUR)
+				  .etat(Etat.APPROUVE_ACHETEUR)
 				  .date(LocalDate.now())
 				  .user(user)
-				  .demandeAchat(demande)
+//				  .demandeAchat(demande)
 				  .build()
 				  );
 		  demandeAchatService.saveDemandeAchat(demande);

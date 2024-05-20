@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.Igris.ApplicationGestionAchat.Entity.Token;
+import com.Igris.ApplicationGestionAchat.Entity.User.Token;
 import com.Igris.ApplicationGestionAchat.Repository.TokenRepository;
 
 import lombok.RequiredArgsConstructor;

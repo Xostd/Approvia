@@ -8,7 +8,7 @@ import javax.crypto.SecretKey;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.Igris.ApplicationGestionAchat.Entity.User;
+import com.Igris.ApplicationGestionAchat.Entity.User.User;
 import com.Igris.ApplicationGestionAchat.Service.TokenService;
 
 import io.jsonwebtoken.Claims;

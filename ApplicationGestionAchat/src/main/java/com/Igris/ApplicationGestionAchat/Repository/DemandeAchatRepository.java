@@ -9,10 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat;
-import com.Igris.ApplicationGestionAchat.Entity.Region;
-import com.Igris.ApplicationGestionAchat.Entity.Service;
-import com.Igris.ApplicationGestionAchat.Entity.User;
+import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat.DemandeAchat;
+import com.Igris.ApplicationGestionAchat.Entity.User.Region;
+import com.Igris.ApplicationGestionAchat.Entity.User.Service;
+import com.Igris.ApplicationGestionAchat.Entity.User.User;
 
 @Repository
 public interface DemandeAchatRepository extends JpaRepository<DemandeAchat, String>{
@@ -20,26 +20,31 @@ public interface DemandeAchatRepository extends JpaRepository<DemandeAchat, Stri
     @Query("""
     		SELECT da FROM DemandeAchat da 
     		JOIN da.etats de 
-    		WHERE de.user.matricule = :matricule AND de.etat = 'CREEE'
+    		WHERE de.user.matricule = :matricule AND de.etat = 'CREE'
     		""")
     List<DemandeAchat> findByAuteur(String matricule);
 	
 //	List<DemandeAchat> findByEtatUser( User user);
-	
+	@Query("""
+			Select da FROM DemandeAchat da
+			JOIN FETCH da.lignes ld
+			WHERE da.reference = :reference
+	""")
 	Optional<DemandeAchat> findByReference(String reference);
 
 
 	@Query("""
-		    SELECT da FROM DemandeAchat da 
-    		JOIN da.etats de 
-    		WHERE de.user.region = :region 
-    		AND de.etat != 'REJETEE'
+		    SELECT da
+		    FROM DemandeAchat da
+		    JOIN da.etats de
+		    WHERE de.etat != 'REJETE' AND de.user.region = :region
 		    
 		""")
 		List<DemandeAchat> findAllDemandeAchatByRegion(@Param("region") Region region);
 	
 	@Query("""
 		    SELECT da FROM DemandeAchat da 
+		    LEFT JOIN FETCH da.lignes ld
     		JOIN da.etats de 
     		WHERE de.user.region = :region 
     		AND de.user.service = :service

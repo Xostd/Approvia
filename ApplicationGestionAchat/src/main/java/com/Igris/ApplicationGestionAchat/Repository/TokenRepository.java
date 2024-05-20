@@ -1,9 +1,10 @@
 package com.Igris.ApplicationGestionAchat.Repository;
 
-import com.Igris.ApplicationGestionAchat.Entity.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import com.Igris.ApplicationGestionAchat.Entity.User.Token;
 
 import java.util.List;
 import java.util.Optional;

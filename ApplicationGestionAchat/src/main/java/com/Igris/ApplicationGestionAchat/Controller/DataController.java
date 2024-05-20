@@ -2,16 +2,16 @@ package com.Igris.ApplicationGestionAchat.Controller;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Igris.ApplicationGestionAchat.Entity.Etat;
-import com.Igris.ApplicationGestionAchat.Entity.Poste;
-import com.Igris.ApplicationGestionAchat.Entity.Region;
-import com.Igris.ApplicationGestionAchat.Entity.Service;
+import com.Igris.ApplicationGestionAchat.Entity.User.Poste;
+import com.Igris.ApplicationGestionAchat.Entity.User.Region;
+import com.Igris.ApplicationGestionAchat.Entity.User.Service;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,11 +46,4 @@ public class DataController {
 	    return postesArr;
 	  }
 	  
-	  @GetMapping("etats")
-	  public ArrayList<String> getEtat() {
-		  EnumSet<Etat> etats = EnumSet.allOf(Etat.class);
-		  ArrayList<String> etatsArr = new ArrayList<String>();
-		  etats.forEach(etat ->etatsArr.add(etat.name()));
-	    return etatsArr;
-	  }
 }

@@ -8,13 +8,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.Igris.ApplicationGestionAchat.Entity.AuthenticationResponse;
-import com.Igris.ApplicationGestionAchat.Entity.Permission;
-import com.Igris.ApplicationGestionAchat.Entity.Poste;
-import com.Igris.ApplicationGestionAchat.Entity.Role;
-import com.Igris.ApplicationGestionAchat.Entity.Token;
-import com.Igris.ApplicationGestionAchat.Entity.User;
-
+import com.Igris.ApplicationGestionAchat.Entity.User.AuthenticationResponse;
+import com.Igris.ApplicationGestionAchat.Entity.User.Permission;
+import com.Igris.ApplicationGestionAchat.Entity.User.Poste;
+import com.Igris.ApplicationGestionAchat.Entity.User.Role;
+import com.Igris.ApplicationGestionAchat.Entity.User.Token;
+import com.Igris.ApplicationGestionAchat.Entity.User.User;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +44,7 @@ public class AuthenticationService {
 		switch(userRequest.getPoste()) {
 		case RESPONSABLE:
 			if(userRequest.getService()
-					.equals(com.Igris.ApplicationGestionAchat.Entity.Service.Achat))
+					.equals(com.Igris.ApplicationGestionAchat.Entity.User.Service.Achat))
 				permission=Permission.VALIDATOR;
 			else
 				permission=Permission.REGULAR;
@@ -59,7 +58,7 @@ public class AuthenticationService {
 		Role role =Role.DEMANDEUR;
 		
 			if(userRequest.getService()
-					.equals(com.Igris.ApplicationGestionAchat.Entity.Service.Achat)) {
+					.equals(com.Igris.ApplicationGestionAchat.Entity.User.Service.Achat)) {
 				role=Role.ACHETEUR;}
 //				permission=Permission.VALIDATOR;
 //				if(!userRequest.getPoste().equals(Poste.TRAVAILLEUR)

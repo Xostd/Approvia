@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import com.Igris.ApplicationGestionAchat.Entity.LigneDemandeAchat;
+import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat.LigneDemandeAchat;
 import com.Igris.ApplicationGestionAchat.Repository.LigneDemandeAchatRepository;
 
 import lombok.RequiredArgsConstructor;

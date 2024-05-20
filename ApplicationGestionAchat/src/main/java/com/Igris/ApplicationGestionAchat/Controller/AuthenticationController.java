@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Igris.ApplicationGestionAchat.Entity.AuthenticationResponse;
-import com.Igris.ApplicationGestionAchat.Entity.User;
+import com.Igris.ApplicationGestionAchat.Entity.User.AuthenticationResponse;
+import com.Igris.ApplicationGestionAchat.Entity.User.User;
 import com.Igris.ApplicationGestionAchat.Service.AuthenticationService;
 
 import jakarta.servlet.http.HttpServletResponse;

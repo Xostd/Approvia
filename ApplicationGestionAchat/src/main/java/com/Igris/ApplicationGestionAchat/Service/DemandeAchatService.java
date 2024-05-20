@@ -6,9 +6,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat;
-import com.Igris.ApplicationGestionAchat.Entity.Region;
-import com.Igris.ApplicationGestionAchat.Entity.User;
+import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat.DemandeAchat;
+import com.Igris.ApplicationGestionAchat.Entity.User.Region;
+import com.Igris.ApplicationGestionAchat.Entity.User.User;
 import com.Igris.ApplicationGestionAchat.Repository.DemandeAchatRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class DemandeAchatService{
 	}
 	
 	public List<DemandeAchat> getDemandeAchatByUserRegionAndService(Region region
-			,com.Igris.ApplicationGestionAchat.Entity.Service service){
+			,com.Igris.ApplicationGestionAchat.Entity.User.Service service){
 		return demandeAchatRepository
 				.findAllDemandeAchatByRegionAndService(region,service);
 	}

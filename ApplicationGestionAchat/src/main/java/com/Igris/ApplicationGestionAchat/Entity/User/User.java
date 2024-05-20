@@ -1,4 +1,4 @@
-package com.Igris.ApplicationGestionAchat.Entity;
+package com.Igris.ApplicationGestionAchat.Entity.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -96,6 +96,7 @@ public class User implements UserDetails {
 	// ---------------------------------UserDetails
 	// methods-----------------------------------------------------------
 	// get user role
+	@JsonIgnore
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();

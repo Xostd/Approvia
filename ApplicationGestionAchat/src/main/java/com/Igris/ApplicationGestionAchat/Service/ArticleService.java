@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.Igris.ApplicationGestionAchat.Entity.Article;
+import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat.Article;
 import com.Igris.ApplicationGestionAchat.Repository.ArticleRepository;
 
 import lombok.RequiredArgsConstructor;

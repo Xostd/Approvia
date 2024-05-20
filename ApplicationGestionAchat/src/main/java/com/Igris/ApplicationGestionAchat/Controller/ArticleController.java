@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Igris.ApplicationGestionAchat.Entity.Article;
+import com.Igris.ApplicationGestionAchat.Entity.DemandeAchat.Article;
 import com.Igris.ApplicationGestionAchat.Service.ArticleService;
 
 import lombok.RequiredArgsConstructor;
